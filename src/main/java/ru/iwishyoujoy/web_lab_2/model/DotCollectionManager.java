@@ -1,18 +1,23 @@
 package ru.iwishyoujoy.web_lab_2.model;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class DotCollectionManager {
-    private static LinkedList<Dot> collection = new LinkedList<>();
-
-    public static void add(Dot dot){
+    private List<Dot> collection = new LinkedList<>();
+    public void add(Dot dot){
         collection.add(dot);
     }
-    public static void clear(){
-        collection = new LinkedList<>();
+    public void clear(){
+        collection.clear();
     }
-    public static LinkedList<Dot> getCollection(){
+    public List<Dot> getCollection(){
         return collection;
+    }
+    public Dot getLast(){ return collection.get(collection.size()-1); }
+
+    public boolean isEmpty(){
+        return collection.size()==0;
     }
 
 }

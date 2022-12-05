@@ -15,7 +15,7 @@ function getDataFromForm(){
 
 function sendDataToServer(x, y, r) {
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "controller-servlet",
         dataType: "json",
         async: false,

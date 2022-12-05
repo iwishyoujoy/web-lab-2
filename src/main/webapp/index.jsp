@@ -120,8 +120,8 @@
                     <text x="162" y="204">-R/2</text>
                     <text x="162" y="254">-R</text>
 
-                    <%--@elvariable id="dots" type="java.util.LinkedList"--%>
-                    <c:forEach items="${dots}" var="col">
+                    <%--@elvariable id="dots" type="ru.iwishyoujoy.web_lab_2.model.DotCollectionManager"--%>
+                    <c:forEach items="${dots.collection}" var="col">
                         <circle class="dot" cx="${150 + 50 * 2/col.getR() * col.getX()}"
                                 cy="${150 - 50 * 2/col.getR() * col.getY()}" r="3"
                                 fill="#000000" stroke-width="0"></circle>
@@ -144,8 +144,8 @@
                             <th>Время работы программы (мкс)</th>
                             <th>Результат</th>
                         </tr>
-                        <%--@elvariable id="dots" type="java.util.LinkedList"--%>
-                        <c:forEach items="${dots}" var="col">
+                        <%--@elvariable id="dots" type="ru.iwishyoujoy.web_lab_2.model.DotCollectionManager"--%>
+                        <c:forEach items="${dots.collection}" var="col">
                             <tr>
                                 <td>${col.getX().toString().format("%.2f", col.getX())}</td>
                                 <td>${col.getY().toString().format("%.2f", col.getY())}</td>

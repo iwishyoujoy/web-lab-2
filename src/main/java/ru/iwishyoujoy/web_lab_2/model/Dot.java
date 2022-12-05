@@ -1,12 +1,14 @@
 package ru.iwishyoujoy.web_lab_2.model;
 
+import java.util.Locale;
+
 public class Dot {
-    private float x;
-    private float y;
-    private float r;
-    private String status; //indicate if dot is in the area
-    private String time;
-    private long scriptTime;
+    private final float x;
+    private final float y;
+    private final float r;
+    private final String status; //indicate if dot is in the area
+    private final String time;
+    private final long scriptTime;
 
     public Dot(float x, float y, float r, String time, long scriptTime, String status) {
         this.x = x;
@@ -29,10 +31,6 @@ public class Dot {
         return r;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public String getTime() {
         return time;
     }
@@ -41,27 +39,11 @@ public class Dot {
         return scriptTime;
     }
 
-    public void setX(float x) {
-        this.x = x;
+    public String getStatus() {
+        return status;
     }
 
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public void setR(float r) {
-        this.r = r;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public void setScriptTime(long scriptTime) {
-        this.scriptTime = scriptTime;
+    public String toJSON(){
+        return String.format(Locale.US,"{\"x\": %.3f, \"y\": %.3f, \"r\": %.3f, \"status\": \"%s\", \"time\": \"%s\", \"scriptTime\": %d}",x, y, r, status, time, scriptTime);
     }
 }

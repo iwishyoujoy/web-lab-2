@@ -1,6 +1,6 @@
 function clearTable() {
     $.ajax({
-        type: "POST",
+        type: "DELETE",
         url: "controller-servlet",
         async: false,
         success: function () {

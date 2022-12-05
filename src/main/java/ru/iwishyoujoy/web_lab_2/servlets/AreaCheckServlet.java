@@ -1,6 +1,5 @@
 package ru.iwishyoujoy.web_lab_2.servlets;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import ru.iwishyoujoy.web_lab_2.model.Dot;
 import ru.iwishyoujoy.web_lab_2.model.DotCollectionManager;
 
@@ -12,34 +11,50 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 @WebServlet(name = "area-check-servlet", value = "/area-check-servlet")
 public class AreaCheckServlet extends HttpServlet {
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter printWriter = response.getWriter();
-        LocalDateTime startTime = LocalDateTime.now(ZoneOffset.UTC);
+
         long timer = System.nanoTime();
-        ObjectMapper objectMapper = new ObjectMapper();
+
         try {
             float x = Float.parseFloat(request.getParameter("x-value"));
             float y = Float.parseFloat(request.getParameter("y-value"));
             float r = Float.parseFloat(request.getParameter("r-value"));
+
             log("X: " + x);
             log("Y: " + y);
             log("R: " + r);
+
             String status = isHit(x, y, r);
 
+            int timezone = Integer.parseInt(request.getParameter("timezone"));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            Dot newDot = new Dot(x, y, r, startTime.minusMinutes(Long.parseLong(request.getParameter("timezone"))).format(formatter),
-                    (long) ((System.nanoTime()-timer)*0.001), status);
-            DotCollectionManager.add(newDot);
+            String currentTime = formatter.format(LocalDateTime.now().plus(timezone, MINUTES));
+            long scriptTime = (long) ((System.nanoTime()-timer)*0.001);
+
+            Object collection = getServletContext().getAttribute("dots");
+
+            if (collection == null){
+                collection = new DotCollectionManager();
+            }
+
+            DotCollectionManager dotsCollection = (DotCollectionManager)collection;
+
+            Dot newDot = new Dot(x, y, r, currentTime, scriptTime, status);
+            dotsCollection.add(newDot);
             log("Shot successfully added");
 
-            getServletContext().setAttribute("dots", DotCollectionManager.getCollection());
-            String responseBody = objectMapper.writeValueAsString(newDot);
+            getServletContext().setAttribute("dots", dotsCollection);
+
+            String responseBody = newDot.toJSON();
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             printWriter.write(responseBody);

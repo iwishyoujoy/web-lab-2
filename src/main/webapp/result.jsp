@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
     <head>
         <meta charset="utf-8">
@@ -34,20 +35,16 @@
                         <th>Время работы программы (мкс)</th>
                         <th>Результат</th>
                     </tr>
-                    <%--@elvariable id="dots" type="java.util.LinkedList"--%>
+                    <%--@elvariable id="dots" type="ru.iwishyoujoy.web_lab_2.model.DotCollectionManager"--%>
                     <tr>
-                        <c:choose>
-                            <c:when test="${dots.size()>0}">
-                                <td>${dots.getLast().getX().toString().format("%.2f", dots.getLast().getX()).replaceAll(",",".")}</td>
-                                <td>${dots.getLast().getY().toString().format("%.2f", dots.getLast().getY()).replaceAll(",",".")}</td>
-                                <td>${dots.getLast().getR().toString().format("%.2f", dots.getLast().getR()).replaceAll(",",".")}</td>
-                                <td>${dots.getLast().getTime().toString()}</td>
-                                <td>${dots.getLast().getScriptTime().toString()}</td>
-                                <td>${dots.getLast().getStatus().toString()}</td>
-                            </c:when>
-                            <c:otherwise>
-                            </c:otherwise>
-                        </c:choose>
+                        <c:if test="${not empty dots.collection}">
+                            <td>${dots.last.x.toString().format("%.2f", dots.last.x)}</td>
+                            <td>${dots.last.y.toString().format("%.2f", dots.last.x)}</td>
+                            <td>${dots.last.r.toString().format("%.2f", dots.last.r)}</td>
+                            <td>${dots.last.time}</td>
+                            <td>${dots.last.scriptTime}</td>
+                            <td>${dots.last.status}</td>
+                        </c:if>
                     </tr>
                 </table>
             </div>
