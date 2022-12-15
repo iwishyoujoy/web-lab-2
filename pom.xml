@@ -28,6 +28,11 @@
             <artifactId>jsp-api</artifactId>
             <version>2.2</version>
         </dependency>
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>2.60.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,3 +1,4 @@
+<%@ page import="ru.iwishyoujoy.web_lab_2.Subscribers" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML PUBLIC"-//W3C//DTD HTML 4.01//EN""http://www.w3.org/TR/html4/strict.dtd">
@@ -29,9 +30,14 @@
                 <a class='pointer' href="https://github.com/iwishyoujoy/web-lab-2">Исходный код</a>
                 &nbsp &nbsp &nbsp
                 <a class='pointer' href="https://iwishyoujoy.ru">Моё портфолио</a>
+                &nbsp &nbsp &nbsp
+                <a class='pointer' href="https://t.me/itmoru">"Корень из ИТМО"</a>: <%=Subscribers.getCountTelegram()%>
             </nav>
             <div id="description">
                 Скворцова Дарья P32101 Вариант 10006
+                &nbsp &nbsp &nbsp
+                <a class='pointer' href="https://vk.com/iwishyoujoy_photo">i wish you joy</a>: <%=Subscribers.getCountVk()%>
+
             </div>
             <div id="data-container">
                 <form novalidate onsubmit="getDataFromForm(); return false;">
@@ -122,8 +128,8 @@
 
                     <%--@elvariable id="dots" type="ru.iwishyoujoy.web_lab_2.model.DotCollectionManager"--%>
                     <c:forEach items="${dots.collection}" var="col">
-                        <circle class="dot" cx="${150 + 50 * 2/col.getR() * col.getX()}"
-                                cy="${150 - 50 * 2/col.getR() * col.getY()}" r="3"
+                        <circle class="dot" cx="${150 + 50 * 2/col.r * col.x}"
+                                cy="${150 - 50 * 2/col.r * col.y}" r="3"
                                 fill="#000000" stroke-width="0"></circle>
                     </c:forEach>
                 </svg>
@@ -147,12 +153,12 @@
                         <%--@elvariable id="dots" type="ru.iwishyoujoy.web_lab_2.model.DotCollectionManager"--%>
                         <c:forEach items="${dots.collection}" var="col">
                             <tr>
-                                <td>${col.getX().toString().format("%.2f", col.getX())}</td>
-                                <td>${col.getY().toString().format("%.2f", col.getY())}</td>
-                                <td>${col.getR().toString().trim().format("%.2f", col.getR())}</td>
-                                <td>${col.getTime().toString()}</td>
-                                <td>${col.getScriptTime().toString()}</td>
-                                <td>${col.getStatus().toString()}</td>
+                                <td>${col.x.toString().format("%.2f", col.x)}</td>
+                                <td>${col.y.toString().format("%.2f", col.y)}</td>
+                                <td>${col.r.toString().trim().format("%.2f", col.r)}</td>
+                                <td>${col.time.toString()}</td>
+                                <td>${col.scriptTime.toString()}</td>
+                                <td>${col.status.toString()}</td>
                             </tr>
                         </c:forEach>
                     </table>
